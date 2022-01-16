@@ -22,7 +22,7 @@ public interface AccountRepo {
     // Fulfill the CRUD Operation for Account
     public Account addAccount(Account acc);
     public Account getAccount(int id);
-    public GenericLinkedList<Account> getAllAccount();
+    public GenericLinkedList<Account> getAllAccounts();
     public Account updateAccount(Account change);
     public Account deleteAccount(int id);
 

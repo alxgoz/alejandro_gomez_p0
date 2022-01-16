@@ -10,7 +10,7 @@ public class FileIOTest {
     public static void main(String[] args) throws IOException {
 
         // Run startup to populate list
-       FileDB.startUp();
+//       FileDB.startUp();  // Commented out after adding a static block in FileDb
 
        System.out.println(FileDB.accountList);
 

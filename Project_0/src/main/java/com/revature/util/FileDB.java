@@ -9,6 +9,15 @@ public class FileDB {
     public static GenericLinkedList<Account> accountList = new GenericLinkedList<>();
     private static final String CSV_FILE_PATH = "src/main/resources/account.csv";
 
+    // Static block - class initializer -  executed ONCE, the first time this Class is referenced
+    static {
+        try {
+            startUp();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void startUp() throws IOException {
 
         //Set up the BufferedReader Object to the correct file path.
@@ -28,28 +37,9 @@ public class FileDB {
 
             // Read in the next line until null (which has a value of null) and breaks out of while loop
             line = reader.readLine();
-
-
         }
-
+    reader.close();
     }
-
-    // Separate CSV file into tokens and input into them into correct variables of Account object
-    private static Account parseAccount(String csv) {
-        Account acc = new Account();
-        // Regular Expression
-        String[] tokens = csv.split(",");
-
-        acc.setId(Integer.parseInt(tokens[0]));
-        acc.setFName(tokens[1]);
-        acc.setLName(tokens[2]);
-        acc.setBalance(Double.parseDouble(tokens[3]));
-        acc.setAvailable(Boolean.parseBoolean(tokens[4]));
-        acc.setPw(tokens[5]);
-
-        return acc;
-    }
-
 
     // method reads all Account data from GLL and writes it to CSV
     public static void shutDown() throws IOException {
@@ -72,6 +62,24 @@ public class FileDB {
         writer.close();
 
     }
+
+    // Separate CSV file into tokens and input into them into correct variables of Account object
+    private static Account parseAccount(String csv) {
+        Account acc = new Account();
+        // Regular Expression
+        String[] tokens = csv.split(",");
+
+        acc.setId(Integer.parseInt(tokens[0]));
+        acc.setFName(tokens[1]);
+        acc.setLName(tokens[2]);
+        acc.setBalance(Double.parseDouble(tokens[3]));
+        acc.setAvailable(Boolean.parseBoolean(tokens[4]));
+        acc.setPw(tokens[5]);
+
+        return acc;
+    }
+
+
     // Helper method to shutDown()
     // Converts Account object into readable format and adds commas (for CSV)
     private static String parseCSV(Account acc){

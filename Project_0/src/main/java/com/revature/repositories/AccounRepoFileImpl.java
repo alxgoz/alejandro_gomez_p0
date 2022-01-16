@@ -5,7 +5,6 @@ import com.revature.util.GenericLinkedList;
 
 public class AccounRepoFileImpl implements AccountRepo {
 
-
     @Override
     public Account addAccount(Account acc) {
         return null;
@@ -17,7 +16,7 @@ public class AccounRepoFileImpl implements AccountRepo {
     }
 
     @Override
-    public GenericLinkedList<Account> getAllAccount() {
+    public GenericLinkedList<Account> getAllAccounts() {
         return null;
     }
 
