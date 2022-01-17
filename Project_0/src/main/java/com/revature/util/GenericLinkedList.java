@@ -1,5 +1,9 @@
 package com.revature.util;
 
+import com.revature.models.Account;
+
+import java.lang.reflect.InvocationTargetException;
+
 public class GenericLinkedList <T> {
 
     public Node<T> head = null;
@@ -68,4 +72,23 @@ public class GenericLinkedList <T> {
         return result;
     }
 
+    public T find(int id) {
+
+        Node<T> iterator = head;
+
+        for(int i = 0; i < size; i++){
+            T element = iterator.data;
+            try{
+                if ((int) element.getClass().getMethod("getId").invoke(element) == id ) {
+                    return element;
+                }
+            }catch (NoSuchMethodException e){
+                continue;
+            }catch (InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            iterator = iterator.next;
+        }
+     return null;
+    }
 }

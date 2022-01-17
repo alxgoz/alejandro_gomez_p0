@@ -1,18 +1,20 @@
 package com.revature.repositories;
 
 import com.revature.models.Account;
+import com.revature.util.FileDB;
 import com.revature.util.GenericLinkedList;
 
 public class AccounRepoFileImpl implements AccountRepo {
 
     @Override
     public Account addAccount(Account acc) {
-        return null;
+        FileDB.accountList.add(acc);
+        return acc;
     }
 
     @Override
     public Account getAccount(int id) {
-        return null;
+        return FileDB.accountList.find(id);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.revature.models.Account;
 import com.revature.util.GenericLinkedList;
 
     /*
+        * RESPONSIBLE FOR ANY CRUD OPERATIONS RELATED TO ACCOUNT *
 
        Coding to Interfaces
 
