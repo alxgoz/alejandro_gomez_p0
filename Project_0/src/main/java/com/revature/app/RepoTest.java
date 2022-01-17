@@ -3,6 +3,7 @@ package com.revature.app;
 import com.revature.models.Account;
 import com.revature.repositories.AccounRepoFileImpl;
 import com.revature.repositories.AccountRepo;
+import com.revature.repositories.AccountRepoDBImpl;
 import com.revature.util.FileDB;
 import com.revature.util.ResourceNotFoundException;
 import org.omg.Messaging.SyncScopeHelper;
@@ -14,30 +15,38 @@ public class RepoTest {
 
     public static void main(String[] args) throws IOException, ResourceNotFoundException {
 
+        AccountRepo ar = new AccountRepoDBImpl();
+        System.out.println(ar.getAccount(1));
+
+
         // Test addAccount
         // Declared by its Interface (AccountRepo)
         // Instantiated with whatever current implementation we are developing,
         // In this case it's AccountRepoFileImpl
-        AccountRepo accRepo = new AccounRepoFileImpl();
+//        AccountRepo accRepo = new AccounRepoFileImpl();
 
-      accRepo.addAccount(new Account( 2, "Rich", "DeLucca", .23, true, "43211234"));
+//      accRepo.addAccount(new Account( 2, "Rich", "DeLucca", .23, true, "43211234"));
 //
-//        // Test getAccount when given specific ID
+//        Test getAccount when given specific ID
 //        System.out.println(accRepo.getAccount(2));
-        System.out.println(accRepo.getAllAccounts());
+//        System.out.println(accRepo.getAllAccounts());
+//        End Test getAccount
 //
-//        // Test updateAccount by balance increasing balance by 1
+//        Test updateAccount by balance increasing balance by 1
 //        Account accRepo2 = accRepo.getAccount(2);
 //        accRepo2.setBalance(accRepo2.getBalance() + 1);
 //
 //        accRepo.updateAccount(accRepo2);
 //        System.out.println(accRepo.getAccount(2));
+//        End Test updateAccount
 
+//        Test deleteAccount
 //        accRepo.deleteAccount(1);
+//        End Test deleteAccount
 
 
-        // Shutdown to save/write-out changes
-        FileDB.shutDown();
+//        ++Shutdown to save/write-out changes++
+//            FileDB.shutDown();
 
     }
 
