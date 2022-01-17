@@ -17,9 +17,11 @@ public class RepoTest {
         // In this case it's AccountRepoFileImpl
         AccountRepo accRepo = new AccounRepoFileImpl();
 
-        accRepo.addAccount(new Account( 2, "Don", "Flick", 75.00, true, "12344321"));
+//        accRepo.addAccount(new Account( 2, "Don", "Flick", 75.00, true, "12344321"));
 
         System.out.println(accRepo.getAccount(2));
+        System.out.println(accRepo.getAllAccounts());
+
 
         // Shutdown to save/write-out changes
         FileDB.shutDown();

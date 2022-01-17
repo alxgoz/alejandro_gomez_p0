@@ -19,7 +19,7 @@ public class AccounRepoFileImpl implements AccountRepo {
 
     @Override
     public GenericLinkedList<Account> getAllAccounts() {
-        return null;
+        return FileDB.accountList;
     }
 
     @Override
