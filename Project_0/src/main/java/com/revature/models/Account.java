@@ -86,11 +86,11 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", first name='" + fName + '\'' +
-                ", last name='" + lName + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
                 ", balance=" + balance +
                 ", available=" + available +
-                ", password=" + pw +
+                ", pw='" + pw + '\'' +
                 '}';
     }
 }

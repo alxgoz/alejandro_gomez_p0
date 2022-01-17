@@ -17,6 +17,7 @@ import com.revature.util.GenericLinkedList;
 
 import com.revature.models.Account;
 import com.revature.util.GenericLinkedList;
+import com.revature.util.ResourceNotFoundException;
 
 public interface AccountRepo {
 
@@ -25,6 +26,6 @@ public interface AccountRepo {
     public Account getAccount(int id);
     public GenericLinkedList<Account> getAllAccounts();
     public Account updateAccount(Account change);
-    public Account deleteAccount(int id);
+    public Account deleteAccount(int id) throws ResourceNotFoundException;
 
 }

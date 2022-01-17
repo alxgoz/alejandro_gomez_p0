@@ -22,6 +22,8 @@ public class FileIOTest {
         FileDB.accountList.add(acc);
         FileDB.accountList.add(acc);
 
+        System.out.println("toString test  " + acc);
+
 //        System.out.println(FileDB.accountList);
         // Run shutdown to write the list to our file
         FileDB.shutDown();

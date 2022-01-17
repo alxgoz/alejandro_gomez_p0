@@ -23,7 +23,7 @@ public class ModelTest {
 
         accountList.add(acc);
         accountList.add(acc);
-
+        System.out.println("To String test " + acc);
         System.out.println(accountList);
 
     }
