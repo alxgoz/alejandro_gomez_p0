@@ -1,5 +1,5 @@
-drop table if exists account;
-create table if not exists account (
+drop table if exists accounts;
+create table if not exists accounts (
 	m_id serial,
 	fName varchar(50),
 	lName varchar(50),
@@ -8,4 +8,5 @@ create table if not exists account (
 	pw varchar(50)
 );
 
-insert into account values (default, 'Tom', 'Jones', 100000, true, '11223344');
+insert into accounts values (default, 'Tom', 'Jones', 100000, true, '11223344');
+insert into accounts values (default, 'Sly', 'Rashid', 7800, true, '44332211');

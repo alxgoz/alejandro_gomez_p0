@@ -15,17 +15,19 @@ public class RepoTest {
 
     public static void main(String[] args) throws IOException, ResourceNotFoundException {
 
-        AccountRepo ar = new AccountRepoDBImpl();
-        System.out.println(ar.getAccount(1));
+       AccountRepo ar = new AccountRepoDBImpl();
+      //Account a = ar.addAccount(new Account( "Rich", "DeLucca", 50000, true, "43211234"));
+
+        //System.out.println(ar.getAccount(a.getId()));
+        //System.out.println(ar.getAllAccounts());
 
 
         // Test addAccount
         // Declared by its Interface (AccountRepo)
         // Instantiated with whatever current implementation we are developing,
         // In this case it's AccountRepoFileImpl
-//        AccountRepo accRepo = new AccounRepoFileImpl();
+        // AccountRepo accRepo = new AccounRepoFileImpl();
 
-//      accRepo.addAccount(new Account( 2, "Rich", "DeLucca", .23, true, "43211234"));
 //
 //        Test getAccount when given specific ID
 //        System.out.println(accRepo.getAccount(2));
@@ -33,15 +35,24 @@ public class RepoTest {
 //        End Test getAccount
 //
 //        Test updateAccount by balance increasing balance by 1
-//        Account accRepo2 = accRepo.getAccount(2);
-//        accRepo2.setBalance(accRepo2.getBalance() + 1);
-//
-//        accRepo.updateAccount(accRepo2);
+//        Account acc = ar.getAccount(1);
+//        acc.setBalance(acc.getBalance() + 1);
+//        ar.updateAccount(acc);
+//        System.out.println(acc);
+
 //        System.out.println(accRepo.getAccount(2));
 //        End Test updateAccount
 
 //        Test deleteAccount
-//        accRepo.deleteAccount(1);
+        System.out.println(ar.getAllAccounts());
+
+        try {
+            System.out.println( ar.deleteAccount(1));
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(ar.getAllAccounts());
 //        End Test deleteAccount
 
 

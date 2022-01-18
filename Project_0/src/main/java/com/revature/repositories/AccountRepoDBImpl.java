@@ -16,6 +16,30 @@ public class AccountRepoDBImpl implements AccountRepo{
 
     @Override
     public Account addAccount(Account acc) {
+
+        String sql = "INSERT INTO accounts VALUES (default,?,?,?,?,?) RETURNING *";
+
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Set values for all the placeholders: ?
+            ps.setString(1, acc.getFName());
+            ps.setString(2, acc.getLName());
+            ps.setDouble(3, acc.getBalance());
+            ps.setBoolean(4, acc.isAvailable());
+            ps.setString(5, acc.getPw());
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                return buildAccount(rs);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -23,7 +47,7 @@ public class AccountRepoDBImpl implements AccountRepo{
     @Override
     public Account getAccount(int id) {
         // Make a String for the SQL statement you want executed. Use placeholders for data values
-        String sql = "SELECT * FROM account WHERE m_id = ?";
+        String sql = "SELECT * FROM accounts WHERE m_id = ?";
 
         try {
             // Set up PreparedStatement
@@ -46,16 +70,80 @@ public class AccountRepoDBImpl implements AccountRepo{
 
     @Override
     public GenericLinkedList<Account> getAllAccounts() {
+
+        String sql = "SELECT * FROM accounts";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            //Extract all accounts out of the ResultSet
+            GenericLinkedList<Account> accounts = new GenericLinkedList<Account>();
+            while(rs.next()) {
+                //Add each account to our list of accounts.
+                accounts.add(buildAccount(rs));
+            }
+            return accounts;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         return null;
     }
 
     @Override
     public Account updateAccount(Account change) {
+
+        String sql = "UPDATE accounts set fname=?, lname=?, balance=?, available=?, pw=? WHERE m_id = ? RETURNING *";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, change.getFName());
+            ps.setString(2, change.getLName());
+            ps.setDouble(3 , change.getBalance());
+            ps.setBoolean(4, change.isAvailable());
+            ps.setString(5, change.getPw());
+            ps.setInt(6, change.getId());
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                return buildAccount(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public Account deleteAccount(int id) throws ResourceNotFoundException {
+
+        String sql = "DELETE FROM accounts WHERE m_id = ? RETURNING *";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                return buildAccount(rs);
+            }else {
+                throw new ResourceNotFoundException("Resource with id: " + id + " was not found in database.");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
