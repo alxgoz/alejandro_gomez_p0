@@ -15,8 +15,8 @@ public class RepoTest {
 
     public static void main(String[] args) throws IOException, ResourceNotFoundException {
 
-       AccountRepo ar = new AccountRepoDBImpl();
-      //Account a = ar.addAccount(new Account( "Rich", "DeLucca", 50000, true, "43211234"));
+//       AccountRepo ar = new AccountRepoDBImpl();
+//      Account a = ar.addAccount(new Account( "Rich", "DeLucca", 50000, true, "43211234"));
 
         //System.out.println(ar.getAccount(a.getId()));
         //System.out.println(ar.getAllAccounts());
@@ -44,15 +44,15 @@ public class RepoTest {
 //        End Test updateAccount
 
 //        Test deleteAccount
-        System.out.println(ar.getAllAccounts());
+//        System.out.println(ar.getAllAccounts());
 
-        try {
-            System.out.println( ar.deleteAccount(1));
-        } catch (ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            System.out.println( ar.deleteAccount(1));
+//        } catch (ResourceNotFoundException e) {
+//            System.out.println(e.getMessage());
+//        }
 
-        System.out.println(ar.getAllAccounts());
+//        System.out.println(ar.getAllAccounts());
 //        End Test deleteAccount
 
 

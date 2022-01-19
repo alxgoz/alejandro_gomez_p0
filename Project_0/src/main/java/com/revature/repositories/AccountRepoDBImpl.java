@@ -139,7 +139,6 @@ public class AccountRepoDBImpl implements AccountRepo{
                 throw new ResourceNotFoundException("Resource with id: " + id + " was not found in database.");
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
