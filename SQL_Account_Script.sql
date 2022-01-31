@@ -8,5 +8,5 @@ create table if not exists accounts (
 	pw varchar(50)
 );
 
-insert into accounts values (default, 'Tom', 'Jones', 100000, true, '11223344');
+insert into accounts values (default, 'Terry', 'Fleece', 1, true, '2');
 insert into accounts values (default, 'Sly', 'Rashid', 7800, true, '44332211');

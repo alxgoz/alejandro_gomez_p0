@@ -12,13 +12,14 @@ public class AccountDriver {
 
     public static void main(String[] args) {
 
+        // START HERE!!!
         StartProject_0();
 
     }
 
     public static void accountMenu(AccountRepo ar, int id){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the number corresponding to your option:");
+        System.out.println("What would you like to do:");
         System.out.println("Option 1: Check balance");
         System.out.println("Option 2: Deposit");
         System.out.println("Option 3: Withdraw");
@@ -27,10 +28,16 @@ public class AccountDriver {
         int option = scan.nextInt();
         scan.nextLine();
 
+        if (option < 0 || option > 3){
+            System.out.println("The entry " + option + " is not one of the options.");
+            System.out.println("Please enter a value between 0 - 2 only.\n");
+            accountMenu(ar, id);
+        }
+
         switch (option) {
             // Check balance
             case 1:
-                System.out.println("You selected Option 1: Check balance");
+                System.out.println("You selected Option 1:");
                 NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 
@@ -42,17 +49,22 @@ public class AccountDriver {
                 break;
             // Make Deposit
             case 2:
-                System.out.println("You selected Option 2: Make a deposit");
+                System.out.println("You selected Option 2:");
                 System.out.println("Type the amount you would like to deposit ");
-               // scan = new Scanner(System.in);
+
                 Double deposit = scan.nextDouble();
+
+                while(deposit <= 0){
+                    System.out.println("That is not a valid entry.  Try again!");
+                    deposit = scan.nextDouble();
+                }
 
                     // Add deposit to current balance
                     Account acc = ar.getAccount(id);
                     acc.setBalance(deposit + acc.getBalance());
-                    ar.updateAccount(acc);
-
-                System.out.println("DB " + ar.getAccount(acc.getId()));
+                    Account account =  ar.updateAccount(acc);
+                NumberFormat formatterW = NumberFormat.getCurrencyInstance();
+                System.out.println("\nhis is your new balance " + formatterW.format(account.getBalance()));
 
 //                NumberFormat formatter2 = NumberFormat.getCurrencyInstance();
 //                System.out.println(formatter2.format(deposit));
@@ -61,31 +73,36 @@ public class AccountDriver {
                 break;
              // Withdraw
             case 3:
-                NumberFormat formatterW = NumberFormat.getCurrencyInstance();
-                System.out.println("You selected Option 3: Make a withdraw");
+                 formatterW = NumberFormat.getCurrencyInstance();
+                System.out.println("You selected Option 3: ");
                 System.out.println("Type the amount you would like to withdraw ");
                 // scan = new Scanner(System.in);
                 Double withdrawAmount = scan.nextDouble();
+
+                while(withdrawAmount <= 0){
+                    System.out.println("That is not a valid entry.  Try again!");
+                    withdrawAmount = scan.nextDouble();
+                }
 
             // Check that withdraw amount is not greater than balance
                 Account accountToWithdrawFrom = ar.getAccount(id);
                  if( accountToWithdrawFrom.getBalance() >= withdrawAmount ){
                      accountToWithdrawFrom.setBalance( accountToWithdrawFrom.getBalance() - withdrawAmount);
                      ar.updateAccount(accountToWithdrawFrom);
-                     System.out.println("You withdraw has been successful");
+                     System.out.println("Your withdrawal has been successful");
                      System.out.println("New Balance :" + formatterW.format(accountToWithdrawFrom.getBalance()));
                      accountMenu(ar, id);
                  }else{
-                     System.out.println("You do not have enough funds to complete transaction");
-                     System.out.println("Check your balance and try again");
+                     System.out.println("\nYou do not have enough funds to complete this transaction");
+                     System.out.println("Check your balance and try again\n");
                      accountMenu(ar, id);
                  }
 
                 break;
             // exit system
             case 0:
-                System.out.println("You selected Option 0: Exit Menu");
-                System.out.println("Good Bye!!!");
+                System.out.println("You selected to exit Account Menu.\n");
+                System.out.println("Main Menu");
                 StartProject_0();
                 break ;
         }
@@ -95,9 +112,9 @@ public class AccountDriver {
 
     public static void login(){
 
-        System.out.println("Provide log-in details");
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your numerical ID: ");
+
+        System.out.println("Enter your ID number: ");
         String stringID =  scan.nextLine();
         int intID = Integer.parseInt(stringID);
         System.out.println("Enter your password: ");
@@ -115,7 +132,7 @@ public class AccountDriver {
 
 
         if ( dbPW.equals(userPW) ){
-            System.out.println("You have gained access to your account");
+            System.out.println("\nYou are now logged in to your account\n");
 //             If the passwords match, call the account menu and send the instance of account repo with id
              accountMenu(ar,intID);
         }else {
@@ -133,61 +150,70 @@ public class AccountDriver {
         String firstName = scan.nextLine();
         System.out.println("Enter your last name: ");
         String lastName = scan.nextLine();
-        System.out.println("Hello " + firstName + " " + lastName);
+        System.out.println("Hello, " + firstName + " " + lastName + "! Now enter a 4 digit password.");
 
-        System.out.println("Enter an 1 digit password");
+        //System.out.println("\nNow enter a 4 digit password...");
         String tempPW = scan.nextLine();
 
-        while (tempPW.length() != 1){
-            System.out.println("That is not 1 characters.  Try again!");
-            System.out.println("Enter an 8 digit password");
+        while (tempPW.length() != 4){
+            System.out.println(tempPW + " is not 4 characters.  Try again.");
+            System.out.println("Enter 4 characters only: ");
              tempPW = scan.nextLine();
         }
 
 
         AccountRepo ar = new AccountRepoDBImpl();
         Account a = ar.addAccount(new Account( firstName, lastName, 0.0, true, tempPW));
-        System.out.println("Your Account has been created");
-        System.out.println("Make sure to secure your ID and Password to log back in.");
+        System.out.println("\nSuccess!  Your Account has been created, " + firstName + " " + lastName + "!");
 
-        System.out.print("Details of your ");
-        System.out.println(ar.getAccount(a.getId()));
+        System.out.println("Make sure to secure your ID: '" + a.getId() + "' You will need it to log back in. Good Bye!");
+
+        System.out.print("\n");
+        //System.out.println(ar.getAccount(a.getId()));
         System.out.println("==============================================");
 
         StartProject_0();
 
-
-
-
     }
 
-    public static void StartProject_0(){
+    public static void StartProject_0()      {
           Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the number corresponding to your option:");
-        System.out.println("Option 1: Log-in to account manager");
-        System.out.println("Option 2: Create account");
-        System.out.println("Option 0: Exit");
+        System.out.println(" *** Welcome to Simple Bank ***");
+        System.out.println("\nEnter the number matching the action you want to take:\n");
+        System.out.println("Option 1: Log in to Account");
+        System.out.println("Option 2: Create Account");
+        System.out.println("Option 0: Exit\n");
         System.out.println("Enter option: ");
-        int option = scan.nextInt();
-        scan.nextLine();
+        try {
+            int option = scan.nextInt();
 
-        switch (option) {
+            //scan.nextLine();
+            if (option < 0 || option > 2) {
+                System.out.println("The entry " + option + " is not one of the options.");
+                System.out.println("Please enter a value between 0 - 2 only.\n");
+                StartProject_0();
+            }
+            switch (option) {
                 // Login
                 case 1:
-                    System.out.println("You selected Option 1:\nLog-in to account manager");
+                    System.out.println("You selected Option 1:\nLog in to account manager\n");
                     login();
                     break;
                 // create  account
                 case 2:
-                    System.out.println("You selected Option 2:\nCreate account");
+                    System.out.println("You selected Option 2, Create account.");
                     createAccount();
                     break;
                 // exit system
                 case 0:
-                    System.out.println("Option 0 to exit system");
-                    System.out.println("Good Bye!!!");
-                    break ;
+                    System.out.println("You selected Exit");
+                    System.out.println("Good Bye!");
+                    break;
             }
-        scan.close();
+            scan.close();
+        }catch (Exception e){
+            System.out.println("That is NOT a Valid Input.  Good bye!\n");
+            StartProject_0();
+        }
     }
 }
